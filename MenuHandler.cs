@@ -46,39 +46,25 @@ public class MenuHandler : MonoBehaviour
 
     private bool CheckButtonSelected(int index)
     {
-        if(indexNow == index)
+        if (!gameObject.activeSelf)
+            return false;
+
+        if (indexNow == index)
             return true;
 
         indexNow = index;
+
+        if (indexNow < 0)
+            indexNow = buttons.Count - 1;
+        if (indexNow >= buttons.Count)
+            indexNow = 0;
+
         selector.SetParent(buttons[index].rectTransform);
         selector.anchorMin = new Vector2(0, 0);
         selector.anchorMax = new Vector2(1, 1);
         selector.offsetMin = new Vector2(0, 0);
         selector.offsetMax = new Vector2(1, 1);
         return false;
-    }
-
-    public void MovePrevious()
-    {
-        if (!gameObject.activeSelf)
-            return;
-
-        --indexNow;
-        if (indexNow < 0)
-            indexNow = buttons.Count - 1;
-
-        CheckButtonSelected(indexNow);
-    }
-    public void MoveNext()
-    {
-        if (!gameObject.activeSelf)
-            return;
-
-        ++indexNow;
-        if (indexNow >= buttons.Count)
-            indexNow = 0;
-
-        CheckButtonSelected(indexNow);
     }
 
     public void SelectMenu() => buttons[indexNow].events.Invoke();
