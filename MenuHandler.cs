@@ -46,7 +46,7 @@ public class MenuHandler : MonoBehaviour
 
     private bool CheckButtonSelected(int index)
     {
-        if (!gameObject.activeSelf)
+        if (!gameObject.activeSelf || !enabled || buttons.Count < 1)
             return false;
 
         if (indexNow == index)
@@ -67,5 +67,9 @@ public class MenuHandler : MonoBehaviour
         return false;
     }
 
-    public void SelectMenu() => buttons[indexNow].events.Invoke();
+    public void SelectMenu()
+    {
+        if (gameObject.activeSelf && enabled)
+            buttons[indexNow].events.Invoke();
+    }
 }
