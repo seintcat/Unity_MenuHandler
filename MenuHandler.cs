@@ -12,12 +12,21 @@ public class MenuHandler : MonoBehaviour
     private List<MenuButton> buttons;
 
     private int indexNow;
+    
+    public MenuButton buttonAdd
+    {
+        set
+        {
+            buttons.Add(value);
+            buttons[buttons.Count - 1].Set(buttons.Count - 1, this);
+        }
+    }
 
     private void Awake()
     {
         for (int i = 0; i < buttons.Count; ++i)
         {
-            buttons[i].index = i;
+            buttons[i].Set(i, this);
         }
 
         indexNow = 0;
